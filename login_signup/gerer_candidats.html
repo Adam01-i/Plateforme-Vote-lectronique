@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gérer les candidats | Administration Vote Électronique</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --gold: #aa9166;
+      --white: #ffffff;
+      --light: #f8f8f8;
+      --text: #0b0b0b;
+      --border: #e5e5e5;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--light);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      background: var(--white);
+      border-right: 3px solid var(--gold);
+      display: flex;
+      flex-direction: column;
+      padding: 25px 20px;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      margin-bottom: 40px;
+    }
+
+    .logo h1 {
+      font-family: "Merriweather", serif;
+      font-style: italic;
+      font-size: 1.8rem;
+      color: var(--gold);
+    }
+
+    .logo img {
+      width: 35px;
+      height: auto;
+      filter: brightness(0) saturate(100%) invert(56%) sepia(12%) saturate(1000%) hue-rotate(5deg) brightness(92%) contrast(88%);
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+
+    .menu a:hover,
+    .menu a.active {
+      background: var(--gold);
+      color: var(--white);
+    }
+
+    /* MAIN */
+    .main {
+      flex: 1;
+      padding: 40px 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header h2 {
+      font-family: "Merriweather", serif;
+      font-size: 1.6rem;
+    }
+
+    .add-btn {
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .add-btn:hover {
+      background: #8d7755;
+    }
+
+    /* GRID */
+    .candidates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .candidate-card {
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      padding: 25px 20px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .candidate-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      border: 1px solid var(--gold);
+    }
+
+    .candidate-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      margin-bottom: 15px;
+    }
+
+    .candidate-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .candidate-card p {
+      color: #555;
+      font-size: 0.95rem;
+      margin: 6px 0 12px;
+    }
+
+    .status {
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 6px 10px;
+      text-align: center;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    .status.active {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .status.inactive {
+      background: #fdecea;
+      color: #c62828;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn.edit {
+      background: var(--gold);
+      color: var(--white);
+    }
+
+    .btn.edit:hover {
+      background: #8d7755;
+    }
+
+    .btn.delete {
+      background: #c62828;
+      color: var(--white);
+    }
+
+    .btn.delete:hover {
+      background: #a91f1f;
+    }
+
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      body { flex-direction: column; }
+      .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        border-right: none;
+        border-bottom: 3px solid var(--gold);
+      }
+      .main { padding: 20px; }
+      .candidate-card img {
+        width: 90px;
+        height: 90px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <aside class="sidebar">
+    <div class="logo">
+      <h1>Vote</h1>
+      <img src="vote.png" alt="Logo Vote">
+    </div>
+
+    <nav class="menu">
+      <a href="dashboard_admin.html"><i class="fa-solid fa-house"></i> Tableau de bord</a>
+      <a href="gerer_electeurs.html"><i class="fa-solid fa-users"></i> Gérer électeurs</a>
+      <a href="gerer_candidats.html" class="active"><i class="fa-solid fa-user-tie"></i> Gérer candidats</a>
+      <a href="lancer_scrutin.html"><i class="fa-solid fa-vote-yea"></i> Lancer scrutin</a>
+      <a href="resultats.html"><i class="fa-solid fa-chart-pie"></i> Résultats</a>
+      <a href="login.html"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header>
+      <h2>Liste des candidats</h2>
+      <button class="add-btn"><i class="fa-solid fa-plus"></i> Ajouter un candidat</button>
+    </header>
+
+    <section class="candidates-grid">
+      <div class="candidate-card">
+        <img src="team-1.jpg" alt="Candidat 1">
+        <h3>Amadou Ndiaye</h3>
+        <p>Parti de l'Union Nationale</p>
+        <span class="status active">Actif</span>
+        <div class="actions">
+          <button class="btn edit"><i class="fa-solid fa-pen"></i> Modifier</button>
+          <button class="btn delete"><i class="fa-solid fa-trash"></i> Supprimer</button>
+        </div>
+      </div>
+
+      <div class="candidate-card">
+        <img src="team-2.jpg" alt="Candidat 2">
+        <h3>Fatou Diop</h3>
+        <p>Alliance pour la République</p>
+        <span class="status inactive">Inactif</span>
+        <div class="actions">
+          <button class="btn edit"><i class="fa-solid fa-pen"></i> Modifier</button>
+          <button class="btn delete"><i class="fa-solid fa-trash"></i> Supprimer</button>
+        </div>
+      </div>
+
+      <div class="candidate-card">
+        <img src="team-3.jpg" alt="Candidat 3">
+        <h3>Mamadou Sow</h3>
+        <p>Parti du Progrès Social</p>
+        <span class="status active">Actif</span>
+        <div class="actions">
+          <button class="btn edit"><i class="fa-solid fa-pen"></i> Modifier</button>
+          <button class="btn delete"><i class="fa-solid fa-trash"></i> Supprimer</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2025 République du Sénégal — Ministère de l’Intérieur et de la Sécurité Publique
+    </footer>
+  </main>
+</body>
+</html>

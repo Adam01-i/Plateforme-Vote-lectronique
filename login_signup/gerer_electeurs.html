@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gérer les électeurs | Administration Vote Électronique</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --gold: #aa9166;
+      --white: #ffffff;
+      --light: #f8f8f8;
+      --text: #0b0b0b;
+      --border: #e5e5e5;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--light);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      background: var(--white);
+      border-right: 3px solid var(--gold);
+      display: flex;
+      flex-direction: column;
+      padding: 25px 20px;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      margin-bottom: 40px;
+    }
+
+    .logo h1 {
+      font-family: "Merriweather", serif;
+      font-style: italic;
+      font-size: 1.8rem;
+      color: var(--gold);
+    }
+
+    .logo img {
+      width: 35px;
+      height: auto;
+      filter: brightness(0) saturate(100%) invert(56%) sepia(12%) saturate(1000%) hue-rotate(5deg) brightness(92%) contrast(88%);
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+
+    .menu a:hover,
+    .menu a.active {
+      background: var(--gold);
+      color: var(--white);
+    }
+
+    /* MAIN */
+    .main {
+      flex: 1;
+      padding: 40px 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header h2 {
+      font-family: "Merriweather", serif;
+      font-size: 1.6rem;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      width: 280px;
+    }
+
+    .search-bar input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .search-bar i {
+      color: var(--gold);
+      margin-right: 8px;
+    }
+
+    /* TABLE */
+    .table-container {
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      padding: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+
+    th {
+      background: var(--light);
+      color: var(--gold);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    td {
+      color: var(--text);
+    }
+
+    tr:hover {
+      background: #fdfaf5;
+    }
+
+    .status {
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 6px 10px;
+      text-align: center;
+      display: inline-block;
+    }
+
+    .status.active {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .status.blocked {
+      background: #fdecea;
+      color: #c62828;
+    }
+
+    .action-btn {
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .action-btn:hover {
+      background: #8d7755;
+    }
+
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      body { flex-direction: column; }
+      .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        border-right: none;
+        border-bottom: 3px solid var(--gold);
+      }
+      .main { padding: 20px; }
+      .search-bar { width: 100%; }
+      table { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <aside class="sidebar">
+    <div class="logo">
+      <h1>Vote</h1>
+      <img src="vote.png" alt="Logo Vote">
+    </div>
+
+    <nav class="menu">
+      <a href="dashboard_admin.html"><i class="fa-solid fa-house"></i> Tableau de bord</a>
+      <a href="gerer_electeurs.html" class="active"><i class="fa-solid fa-users"></i> Gérer électeurs</a>
+      <a href="gerer_candidats.html"><i class="fa-solid fa-user-tie"></i> Gérer candidats</a>
+      <a href="lancer_scrutin.html"><i class="fa-solid fa-vote-yea"></i> Lancer scrutin</a>
+      <a href="resultats.html"><i class="fa-solid fa-chart-pie"></i> Résultats</a>
+      <a href="login.html"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header>
+      <h2>Liste des électeurs</h2>
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Rechercher un électeur...">
+      </div>
+    </header>
+
+    <section class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Statut</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1001</td>
+            <td>Citoyen 1</td>
+            <td>citoyen1@example.com</td>
+            <td><span class="status active">Actif</span></td>
+            <td><button class="action-btn">Bloquer</button></td>
+          </tr>
+          <tr>
+            <td>1002</td>
+            <td>Citoyen 2</td>
+            <td>citoyen2@example.com</td>
+            <td><span class="status blocked">Bloqué</span></td>
+            <td><button class="action-btn">Débloquer</button></td>
+          </tr>
+          <tr>
+            <td>1003</td>
+            <td>Citoyen 3</td>
+            <td>citoyen3@example.com</td>
+            <td><span class="status active">Actif</span></td>
+            <td><button class="action-btn">Bloquer</button></td>
+          </tr>
+          <tr>
+            <td>1004</td>
+            <td>Citoyen 4</td>
+            <td>citoyen4@example.com</td>
+            <td><span class="status active">Actif</span></td>
+            <td><button class="action-btn">Bloquer</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      © 2025 République du Sénégal — Ministère de l’Intérieur et de la Sécurité Publique
+    </footer>
+  </main>
+</body>
+</html>

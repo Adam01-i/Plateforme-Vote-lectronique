@@ -1,0 +1,5 @@
+# Ignorer tous les PDFs de programmes
+assets/programmes/*.pdf
+
+# Ignorer tous les screenshots si trop lourds
+assets/screenshots/

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lancer un scrutin | Administration Vote Électronique</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --gold: #aa9166;
+      --white: #ffffff;
+      --light: #f8f8f8;
+      --text: #0b0b0b;
+      --border: #e5e5e5;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--light);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      background: var(--white);
+      border-right: 3px solid var(--gold);
+      display: flex;
+      flex-direction: column;
+      padding: 25px 20px;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      margin-bottom: 40px;
+    }
+
+    .logo h1 {
+      font-family: "Merriweather", serif;
+      font-style: italic;
+      font-size: 1.8rem;
+      color: var(--gold);
+    }
+
+    .logo img {
+      width: 35px;
+      height: auto;
+      filter: brightness(0) saturate(100%) invert(56%) sepia(12%) saturate(1000%) hue-rotate(5deg) brightness(92%) contrast(88%);
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+
+    .menu a:hover,
+    .menu a.active {
+      background: var(--gold);
+      color: var(--white);
+    }
+
+    /* MAIN */
+    .main {
+      flex: 1;
+      padding: 40px 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header h2 {
+      font-family: "Merriweather", serif;
+      font-size: 1.6rem;
+    }
+
+    /* FORM */
+    .form-container {
+      background: var(--white);
+      border-radius: 18px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+      padding: 40px 50px;
+      max-width: 700px;
+      margin: 0 auto;
+      border-left: 6px solid var(--gold);
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--gold);
+      outline: none;
+      box-shadow: 0 0 5px rgba(170,145,102,0.3);
+    }
+
+    .date-group {
+      display: flex;
+      gap: 20px;
+    }
+
+    .date-group .form-group {
+      flex: 1;
+    }
+
+    .candidats-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .candidat-option {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .candidat-option:hover {
+      border-color: var(--gold);
+      background: #f9f4ed;
+    }
+
+    .candidat-option input {
+      accent-color: var(--gold);
+    }
+
+    .submit-btn {
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      padding: 12px 22px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .submit-btn:hover {
+      background: #8d7755;
+    }
+
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    @media (max-width: 900px) {
+      body { flex-direction: column; }
+      .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        border-right: none;
+        border-bottom: 3px solid var(--gold);
+      }
+      .main { padding: 20px; }
+      .form-container { padding: 30px; }
+    }
+  </style>
+</head>
+
+<body>
+  <aside class="sidebar">
+    <div class="logo">
+      <h1>Vote</h1>
+      <img src="vote.png" alt="Logo Vote">
+    </div>
+
+    <nav class="menu">
+      <a href="dashboard_admin.html"><i class="fa-solid fa-house"></i> Tableau de bord</a>
+      <a href="gerer_electeurs.html"><i class="fa-solid fa-users"></i> Gérer électeurs</a>
+      <a href="gerer_candidats.html"><i class="fa-solid fa-user-tie"></i> Gérer candidats</a>
+      <a href="lancer_scrutin.html" class="active"><i class="fa-solid fa-vote-yea"></i> Lancer scrutin</a>
+      <a href="resultats.html"><i class="fa-solid fa-chart-pie"></i> Résultats</a>
+      <a href="login.html"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header>
+      <h2>Lancer un nouveau scrutin</h2>
+    </header>
+
+    <section class="form-container">
+      <form action="#" method="post">
+        <div class="form-group">
+          <label for="nom">Nom du scrutin</label>
+          <input type="text" id="nom" name="nom" placeholder="Ex : Élection présidentielle 2025" required>
+        </div>
+
+        <div class="form-group">
+          <label for="type">Type d’élection</label>
+          <select id="type" name="type" required>
+            <option value="">-- Sélectionner --</option>
+            <option value="presidentielle">Présidentielle</option>
+            <option value="legislative">Législative</option>
+            <option value="locale">Locale</option>
+          </select>
+        </div>
+
+        <div class="date-group">
+          <div class="form-group">
+            <label for="debut">Date d’ouverture</label>
+            <input type="date" id="debut" name="debut" required>
+          </div>
+
+          <div class="form-group">
+            <label for="fin">Date de clôture</label>
+            <input type="date" id="fin" name="fin" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Candidats participants</label>
+          <div class="candidats-list">
+            <label class="candidat-option"><input type="checkbox" name="candidats" value="1"> Amadou Ndiaye</label>
+            <label class="candidat-option"><input type="checkbox" name="candidats" value="2"> Fatou Diop</label>
+            <label class="candidat-option"><input type="checkbox" name="candidats" value="3"> Mamadou Sow</label>
+            <label class="candidat-option"><input type="checkbox" name="candidats" value="4"> Khady Faye</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description du scrutin</label>
+          <textarea id="description" rows="4" placeholder="Brève description du scrutin..." required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn"><i class="fa-solid fa-play"></i> Lancer le scrutin</button>
+      </form>
+    </section>
+
+    <footer>
+      © 2025 République du Sénégal — Ministère de l’Intérieur et de la Sécurité Publique
+    </footer>
+  </main>
+</body>
+</html>

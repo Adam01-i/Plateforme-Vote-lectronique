@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord administrateur — Système de Vote Électronique</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --gold: #aa9166;
+      --white: #ffffff;
+      --light-grey: #f8f8f8;
+      --text: #0b0b0b;
+      --border: #e5e5e5;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--light-grey);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      background: var(--white);
+      border-right: 3px solid var(--gold);
+      display: flex;
+      flex-direction: column;
+      padding: 25px 20px;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      margin-bottom: 40px;
+    }
+
+    .logo h1 {
+      font-family: "Merriweather", serif;
+      font-style: italic;
+      font-size: 1.8rem;
+      color: var(--gold);
+    }
+
+    .logo img {
+      width: 35px;
+      height: auto;
+      filter: brightness(0) saturate(100%) invert(56%) sepia(12%) saturate(1000%) hue-rotate(5deg) brightness(92%) contrast(88%);
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+
+    .menu a:hover,
+    .menu a.active {
+      background: var(--gold);
+      color: var(--white);
+    }
+
+    /* MAIN */
+    .main {
+      flex: 1;
+      padding: 40px 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header h2 {
+      font-family: "Merriweather", serif;
+      font-size: 1.6rem;
+      color: var(--text);
+    }
+
+    header .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    header .user-info i {
+      font-size: 1.3rem;
+    }
+
+    /* STATS CARDS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      text-align: left;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .card i {
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* TABLE */
+    .table-section {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .table-section h3 {
+      font-family: "Merriweather", serif;
+      margin-bottom: 15px;
+      color: var(--text);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--gold);
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    tr:hover {
+      background: var(--light-grey);
+    }
+
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        border-right: none;
+        border-bottom: 3px solid var(--gold);
+      }
+
+      .menu {
+        flex-direction: row;
+        gap: 12px;
+      }
+
+      .main {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <aside class="sidebar">
+    <div class="logo">
+      <h1>Vote</h1>
+      <img src="vote.png" alt="Logo Vote">
+    </div>
+
+    <nav class="menu">
+      <a href="dashboard_admin.html" class="active"><i class="fa-solid fa-house"></i> Accueil</a>
+      <a href="gerer_electeurs.html"><i class="fa-solid fa-users"></i>Gérer électeurs</a>
+      <a href="gerer_candidats.html"><i class="fa-solid fa-user-tie"></i>Gérer Candidats</a>
+      <a href="lancer_scrutin.html"><i class="fa-solid fa-vote-yea"></i>Lancer scrutin</a>
+      <a href="resultats.html"><i class="fa-solid fa-chart-pie"></i> Résultats</a>
+      <a href="login.html"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header>
+      <h2>Tableau de bord administrateur</h2>
+      <div class="user-info">
+        <i class="fa-solid fa-user-shield"></i> Admin connecté
+      </div>
+    </header>
+
+    <section class="stats">
+      <div class="card">
+        <i class="fa-solid fa-users"></i>
+        <h3>Total électeurs</h3>
+        <p>12 458</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-user-tie"></i>
+        <h3>Total candidats</h3>
+        <p>19</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-vote-yea"></i>
+        <h3>Scrutins actifs</h3>
+        <p>3</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-chart-bar"></i>
+        <h3>Votes enregistrés</h3>
+        <p>9 872</p>
+      </div>
+    </section>
+
+    <section class="table-section">
+      <h3>Liste des électeurs récents</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nom complet</th>
+            <th>Région</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>001</td><td>Fatou Ndiaye</td><td>Dakar</td><td>Actif</td></tr>
+          <tr><td>002</td><td>Mamadou Diallo</td><td>Thiès</td><td>Actif</td></tr>
+          <tr><td>003</td><td>Awa Sow</td><td>Saint-Louis</td><td>Inactif</td></tr>
+          <tr><td>004</td><td>Ibrahima Kane</td><td>Kaolack</td><td>Actif</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      © 2025 République du Sénégal — Ministère de l’Intérieur et de la Sécurité Publique
+    </footer>
+  </main>
+</body>
+</html>
