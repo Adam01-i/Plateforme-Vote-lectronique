@@ -135,8 +135,8 @@ Voici quelques captures de l'application :
 ### 1️⃣ Cloner le projet
 
 ```bash
-git clone https://github.com/Adam01-i/Plateforme-de-Vote-lectronique.git
-cd vote-electroniquePlateforme-de-Vote-lectronique
+git clone https://github.com/Adam01-i/Plateforme-Vote-lectronique.git
+cd vote-electroniquePlateforme-Vote-lectronique
 
 ### 2️⃣ Configurer la base de données
 
@@ -400,7 +400,7 @@ $gagnant = ($total_votes > 0) ? $candidats[0] : null;
 ## 👨‍💻 Auteur
 
 **Nom :** *Adama Seck*
-**Université / Projet :** *Plateforme-de-Vote-lectronique.git
+**Université / Projet :** *Plateforme-Vote-lectronique.git
 **Pays :** Sénégal 🇸🇳
 
 ---
@@ -420,5 +420,5 @@ git init
 git add .
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin hhttps://github.com/Adam01-i/Plateforme-de-Vote-lectronique.git
+git remote add origin hhttps://github.com/Adam01-i/Plateforme-Vote-lectronique.git
 git push -u origin main
