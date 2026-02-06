@@ -2,4 +2,4 @@
 assets/programmes/*.pdf
 
 # Ignorer tous les screenshots si trop lourds
-assets/screenshots/
+# assets/screenshots/
